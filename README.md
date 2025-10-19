@@ -1,9 +1,130 @@
-# Inl-mningardevops
-#Individuell slutuppgift
+# Systemövervakningsapplikation
 
-Deadline för inlämning av kod (GitHub-länk) och rapport (PDF): 24/10
-Presentationer 27/9 + 29/9. Bokas.
+## Vad programmet gör
+Ett program som kollar hur mycket CPU, minne och disk som används. Man kan också skapa larm som ska varna när det används för mycket.
 
-Slutuppgiften går ut på att skriva en övervakningsapplikation skriven i Python. Applikation samlar in information från operativsystemet och presenterar informationen för en användare.
+## Vad som funkar just nu
 
-En användare kan interagera med applikationen via en konsol för att få fram information om CPU användning, minnesanvändning, diskanvändning. När användaren interagerar med applikationen via konsolmenyn ska inga konfigurerade larm aktiveras.
+# Klart
+- [x] **Val 1:** Starta övervakning (sätter en flagga)
+- [x] **Val 2:** Visa CPU, minne och disk
+- [x] **Val 3:** Skapa larm
+- [ ] **Val 4:** Visa alla larm
+- [ ] **Val 5:** Övervakningsläge med larm
+
+# Om jag hinner (VG)
+- [ ] Spara larm till fil
+- [ ] Loggning
+- [ ] Ta bort larm
+
+# Förberedelse
+- Skapade mappar (src/, data/, logs/) för att organisera projektet
+- Tittade på YouTube-tutorials om Python
+- Gick igenom delar av "100 days of code: The Complete Python Pro Bootcamp" på Udemy för att förstå grunderna bättre
+- Testade psutil-funktioner i en separat test.py fil för att lära mig hur de fungerar
+
+
+# Start
+Jag började med att skapa mappar (src/, data/, logs/) för att det skulle se organiserat ut. Men sen bestämde jag mig för att jobba i en fil först (simple_menu.py) för att det var enklare att se allt på en gång.
+
+
+- Lättare att testa - allt är på samma ställe
+- Kunde få det att fungera snabbare
+- Sen kan jag dela upp det senare om jag vill
+
+# Val 1-3: Få det att fungera
+ Jag började med att få menyn att fungera, sen la jag till en del i taget:
+
+- Val 1 var enklast - bara sätta en variabel till True
+- Val 2 var lite svårare - fick googla hur psutil fungerar- 
+- Val 3 tog längst tid - behövde kolla så användaren inte skriver fel saker
+
+
+# Problem jag stött på
+ 1) Problem att jobba i en fil. Glömde committa efter varje del! Var så fokuserad på att få det att fungera. Från val 4 ska jag komma ihåg att committa oftare.
+
+
+2) Input-validering var svårt, då jag innan if statement försökte med case, då jag såg många andra klasskamrater jobba med det. vilket blev även att jag hade problem med erorrhanteringar.
+
+3) En stor utmaning jag har vart indenteringar, med vad som ska vara innaför vilka block för att fungera.
+
+4) jag har även haft problem med att gå vidare när jag inte förstår mig på saker, vilket vart tidskrävande. t.ex kunde jag slösa timmar på att förstå mig på något så simpelt att man sparade `mem = psutil.virtual_memory()` i en variabel men körde `psutil.cpu_percent()` direkt. Sen lägga timmar på att förstå varför skillnad? eller  Hittade två sätt att räkna om bytes till GB:
+- `/ 1024**3` (binärt)
+- `/ 1e9` (decimalt)
+- Fattade inte vilken som var "rätt".
+
+5) Glömde committa Var så inne i att få koden att fungera att jag glömde helt att committa mellan val 1, 2 och 3.
+
+# lösning/ Vad jag lärt mig
+- slutade jämföra mig och jobbade med det som jag kände trygast med t.ex if statement, dock så hade jag forsatt svårt med erorhantering och indenteringar osv.
+
+- Googlade och youtubade. Vissa saker känns fortfarande lite konstigt men jag tror och hoppas jag fattar principen, men valde att inte fastna då det var så energikrävvande. 
+
+- Commits är viktiga för att visa hur man jobbar, inte bara för backup. Från nu (val 4+) ska jag komma ihåg att committa efter varje del som fungerar.
+
+-virtual_memory()` ger tillbaka massa saker (procent, använt, totalt) så det är smartare att spara det en gång istället för att anropa det tre gånger. `cpu_percent()` ger bara EN sak så då behövs ingen variabel.
+ 
+
+
+# Struktur just nu
+
+uppgiftpython/
+├── simple_menu.py      # Allt är här än så länge
+├── src/                # Tom, ska använda senare kanske
+├── data/               # Tom, för JSON senare
+├── logs/               # Tom, för loggfiler senare
+├── requirements.txt    
+└── README.md          
+
+
+
+# Reflektioner 
+
+ Tekniskt:
+- Hur man använder try/except (typ)
+- psutil för att kolla CPU, minne, disk
+- Hur man sparar saker i dictionaries och listor
+- Att indentering är jätteviktigt i Python
+
+- Generellt:
+- Det är okej att inte fatta allt direkt
+- Googla är inte fusk, det är hur man lär sig
+- Testa en liten del i taget istället för allt på en gång
+- Committa oftare!
+
+- Saker jag fortfarande är osäker på:
+- Exakt hur try/except fungerar "under huven"
+- När man ska använda funktioner vs bara skriva i main
+- Om min kod är "bra" eller bara "funkar"
+
+
+ Varför simple_menu.py först?
+Jag tänkte att det var enklare att se allt på ett ställe medan jag lär mig. När allt fungerar kan jag alltid dela upp det senare om jag vill. Är inte säker på om det är "rätt" sätt men det funkar för mig just nu.
+
+ Varför dictionary för larm?
+larm = {"typ": "CPU", "nivå": 80}
+
+För att det är tydligt vad som är vad. Kunde ha använt en lista typ `["CPU", 80]` men då vet man inte vad 80 betyder utan att komma ihåg ordningen.
+
+# Vad jag har kvar
+
+
+- Val 4: Visa alla larm 
+- Val 5: Övervakningsläge 
+
+ Om jag har tid:
+
+- Dela upp i flera filer (src/)
+- Spara larm till JSON
+- Loggning
+
+## Reflektion
+
+**Lär jag mig?*
+
+
+# Vad jag vill bli bättre på:
+- Strukturera kod bättre
+- Förstå när man ska använda funktioner
+- Skriva renare kod (min kod funkar men är lite rörig)
+
