@@ -2,7 +2,10 @@ import psutil
 
 
 def main_menu():
+    # Boolean för att spåra om övervakning är aktiv
     övervakning_aktiv = False
+
+    # Lista för att lagra larm
     larm_lista = []
 
     while True:
@@ -17,10 +20,12 @@ def main_menu():
 
         val = input("\nVälj alternativ (1-6): ")
 
+        # visa systemstatus
         if val == "1":
             övervakning_aktiv = True
             print("Övervakning startad...")
 
+        # lista övervakning, om aktiv
         elif val == "2":
             if övervakning_aktiv == False:
                 print("ogiltigt val, ingen övervakning är aktiv återgå till menuval")
@@ -37,7 +42,7 @@ def main_menu():
                 print(
                     f"Diskanvändning: {disk.percent}% ({disk.used / (1024**3):.1f} GB av {disk.total / (1024**3):.1f} GB)"
                 )
-
+        # Anger larm-niveå för den valda resursen
         elif val == "3":
 
             print("\n===Konfigurera Larm===")
@@ -76,6 +81,26 @@ def main_menu():
 
                 except ValueError:
                     print("Fel! Ange en siffra.")
+
+        # Visa konfigurerade larm
+        elif val == "4":
+            print("\n===konfiguerade larm===")
+
+            if not larm_lista:
+                print("\n===Inga skapta larm===")
+
+            else:
+                # Funktion för att hämta larmtyp för sortering
+                def hämta_typ(larm):
+                    return larm["typ"]
+
+                sorterade_larm = sorted(larm_lista, key=hämta_typ)
+
+                # Visa larmen med nummer
+                for nummer, larm in enumerate(sorterade_larm, 1):
+                    print(f"{nummer}. {larm['typ']}larm{larm['nivå']}%")
+
+            input("\nTryck Enter för att återgå till huvudmenyn:     ")
 
 
 if __name__ == "__main__":

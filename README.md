@@ -9,7 +9,7 @@ Ett program som kollar hur mycket CPU, minne och disk som används. Man kan ocks
 - [x] **Val 1:** Starta övervakning (sätter en flagga)
 - [x] **Val 2:** Visa CPU, minne och disk
 - [x] **Val 3:** Skapa larm
-- [ ] **Val 4:** Visa alla larm
+- [x] **Val 4:** Visa alla larm
 - [ ] **Val 5:** Övervakningsläge med larm
 
 # Om jag hinner (VG)
@@ -55,6 +55,14 @@ Jag började med att skapa mappar (src/, data/, logs/) för att det skulle se or
 
 5) Glömde committa Var så inne i att få koden att fungera att jag glömde helt att committa mellan val 1, 2 och 3.
 
+6) i meny val 4 så stötte jag på problem med larm inte ville visa sig vid val pga citatttecken, 
+
+- Jag hade svårt att förstå hur `sorted(larm_lista, key=hämta_typ)` fungerade.
+
+# jag tänkte
+- "key=hämta_typ" betyder "hämta alla keys från larm_lista"
+- Funktionen hämta_typ hämtar alla keys från dictionaryn
+
 # lösning/ Vad jag lärt mig
 - slutade jämföra mig och jobbade med det som jag kände trygast med t.ex if statement, dock så hade jag forsatt svårt med erorhantering och indenteringar osv.
 
@@ -63,7 +71,14 @@ Jag började med att skapa mappar (src/, data/, logs/) för att det skulle se or
 - Commits är viktiga för att visa hur man jobbar, inte bara för backup. Från nu (val 4+) ska jag komma ihåg att committa efter varje del som fungerar.
 
 -virtual_memory()` ger tillbaka massa saker (procent, använt, totalt) så det är smartare att spara det en gång istället för att anropa det tre gånger. `cpu_percent()` ger bara EN sak så då behövs ingen variabel.
+
+# Hur jag löste misförståelse om sorted() och key=
+jag youtubade och fråga chatgbt och förtod Python anropar `hämta_typ()` för VARJE dictionary i listan
+ Varje dictionary blir parametern `larm` EN gång
+ Funktionen returnerar det värde som ska användas för sortering
+Python sorterar sedan på dessa returvärden
  
+ key= tar en FUNKTION som parameter, inte en nyckel från dictionaryn!
 
 
 # Struktur just nu
@@ -109,7 +124,6 @@ För att det är tydligt vad som är vad. Kunde ha använt en lista typ `["CPU",
 # Vad jag har kvar
 
 
-- Val 4: Visa alla larm 
 - Val 5: Övervakningsläge 
 
  Om jag har tid:
@@ -128,3 +142,6 @@ För att det är tydligt vad som är vad. Kunde ha använt en lista typ `["CPU",
 - Förstå när man ska använda funktioner
 - Skriva renare kod (min kod funkar men är lite rörig)
 
+git add README.md simple_menu.py
+git commit -m "Uppdatera README lärande process, problem,lösningar och too do list, samt reflektion och struktur av uppgift"
+git push
