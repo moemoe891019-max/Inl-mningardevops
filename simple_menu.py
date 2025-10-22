@@ -1,4 +1,5 @@
 import psutil
+import time
 
 
 def main_menu():
@@ -31,7 +32,8 @@ def main_menu():
                 print("ogiltigt val, ingen övervakning är aktiv återgå till menuval")
 
             else:
-                print(f"CPU användning: {psutil.cpu_percent(interval=1)}%")
+                cpu = psutil.cpu_precent()
+                print(f"CPU användning: {cpu(interval=1)}%")
 
                 mem = psutil.virtual_memory()
                 print(
@@ -101,6 +103,41 @@ def main_menu():
                     print(f"{nummer}. {larm['typ']}larm{larm['nivå']}%")
 
             input("\nTryck Enter för att återgå till huvudmenyn:     ")
+
+        elif val == "5":
+
+            print("\nÖvervakningsläge startad")
+            print(
+                "övervakning aktiv, tryck på valfri tagent för att återgå till Huvudmeny"
+            )
+
+        try:
+            while True:
+
+                cpu = psutil.cpu_percent(interval=1)
+                mem = psutil.virtual_memory().percent
+                disk = psutil.disk_usage("/").percent
+
+                for larm in larm_lista:
+                    if larm["typ"] == "CPU" and cpu >= larm["nivå"]:
+                        print(
+                            f"***VARNING, CPU ANVÄNDNING ÖVERSTIGER {larm['nivå']}%***"
+                        )
+
+                    elif larm["typ"] == "Minne" and mem >= larm["nivå"]:
+                        print(
+                            f"***VARNING, MINNESANVÄNDNING ÖVERSTIGER {larm['nivå']}%***"
+                        )
+
+                    elif larm["typ"] == "Disk" and disk >= larm["nivå"]:
+                        print(
+                            f"***VARNING, DISKANVÄNDNING ÖVERSTIGER {larm['nivå']}%***"
+                        )
+
+                time.sleep(1)
+
+        except KeyboardInterrupt:
+            print("\n\nÖvervakningsläge avslutad")
 
 
 if __name__ == "__main__":

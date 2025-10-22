@@ -10,7 +10,7 @@ Ett program som kollar hur mycket CPU, minne och disk som används. Man kan ocks
 - [x] **Val 2:** Visa CPU, minne och disk
 - [x] **Val 3:** Skapa larm
 - [x] **Val 4:** Visa alla larm
-- [ ] **Val 5:** Övervakningsläge med larm
+- [x] **Val 5:** Övervakningsläge med larm
 
 # Om jag hinner (VG)
 - [ ] Spara larm till fil
@@ -59,6 +59,11 @@ Jag började med att skapa mappar (src/, data/, logs/) för att det skulle se or
 
 - Jag hade svårt att förstå hur `sorted(larm_lista, key=hämta_typ)` fungerade.
 
+7) i val 5, för uppgiften:
+
+ - Avbrott: Hur jag exakt ska implementera att man kan trycka på valfri tagent för att avbryta i konsolen utan att blockera time.sleep(1)
+
+
 # jag tänkte
 - "key=hämta_typ" betyder "hämta alla keys från larm_lista"
 - Funktionen hämta_typ hämtar alla keys från dictionaryn
@@ -71,6 +76,8 @@ Jag började med att skapa mappar (src/, data/, logs/) för att det skulle se or
 - Commits är viktiga för att visa hur man jobbar, inte bara för backup. Från nu (val 4+) ska jag komma ihåg att committa efter varje del som fungerar.
 
 -virtual_memory()` ger tillbaka massa saker (procent, använt, totalt) så det är smartare att spara det en gång istället för att anropa det tre gånger. `cpu_percent()` ger bara EN sak så då behövs ingen variabel.
+
+- i val 5 för uppgiften har jag använt mig av bibloteket import.time för time.sleep för att kuna mäta nivår som är satta av användare i realtid.
 
 # Hur jag löste misförståelse om sorted() och key=
 jag youtubade och fråga chatgbt och förtod Python anropar `hämta_typ()` för VARJE dictionary i listan
@@ -121,13 +128,23 @@ larm = {"typ": "CPU", "nivå": 80}
 
 För att det är tydligt vad som är vad. Kunde ha använt en lista typ `["CPU", 80]` men då vet man inte vad 80 betyder utan att komma ihåg ordningen.
 
+
+# för val 5:
+- Mina reflektioner kring uppgiften
+ **Larmutlösning:** Om flera nivåer är satta (t.ex. CPU 60%, 70%, 80%), är tanken att **alla** larm ska triggas, eller enbart det med **högsta** nivån (80%) när användningen överstiger det? 
+ 
+ - När användaren ska tillbaka till huvudmenyn ska larmen vara fortstt aktiverade.
+
 # Vad jag har kvar
 
 
-- Val 5: Övervakningsläge 
+- Val 5: Övervakningsläge (Måste lösa problemet med att bryta loopen med en tangenttryckning utan att bryta realtidsmätningen.)
 
  Om jag har tid:
 
+
+- Skriv små funktioner med en uppgift vardera
+- Separera logik från input/output
 - Dela upp i flera filer (src/)
 - Spara larm till JSON
 - Loggning
@@ -141,7 +158,3 @@ För att det är tydligt vad som är vad. Kunde ha använt en lista typ `["CPU",
 - Strukturera kod bättre
 - Förstå när man ska använda funktioner
 - Skriva renare kod (min kod funkar men är lite rörig)
-
-git add README.md simple_menu.py
-git commit -m "Uppdatera README lärande process, problem,lösningar och too do list, samt reflektion och struktur av uppgift"
-git push
