@@ -40,3 +40,50 @@ if __name__ == "__main__":
     message = test_alarm.get_warning_message(85)
     print({message})
     print("Passed")
+
+
+class AlarmManager:
+    # Hanterar alla larmen
+
+    def __init__(self):
+        self.alarms = []
+
+    def add_alarm(self, alarm_type, level):
+        # Lägger till ett nytt larm
+        alarm = Alarm(alarm_type, level)
+        self.alarms.append(alarm)
+
+    def check_all_alarms(self, cpu, memory, disk):
+        # Checkar alla larmen och returnerar triggade
+        triggered = []
+
+        for alarm in self.alarms:
+            if alarm.alarm_type == "CPU" and alarm.is_triggered(cpu):
+                triggered.append(alarm)
+            elif alarm.alarm_type == "Minne" and alarm.is_triggered(memory):
+                triggered.append(alarm)
+            elif alarm.alarm_type == "Disk" and alarm.is_triggered(disk):
+                triggered.append(alarm)
+
+        return triggered
+
+
+# TEST-KOD FÖR ALARMMANAGER
+
+manager = AlarmManager()
+
+# Test 1: Lägg till larmen
+manager.add_alarm("CPU", 80)
+manager.add_alarm("Mem", 70)
+manager.add_alarm("Disk", 90)
+print({len(manager.alarms)})
+
+
+# Test 2: Checka larmen
+triggered = manager.check_all_alarms(cpu=85, memory=75, disk=90)
+print({len(triggered)})
+
+
+# Test 3: Inget triggat
+triggered_none = manager.check_all_alarms(cpu=75, memory=60, disk=60)
+print({len(triggered_none)})
