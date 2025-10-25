@@ -27,7 +27,6 @@ Ett program som kollar hur mycket CPU, minne och disk som används. Man kan ocks
 # Start
 Jag började med att skapa mappar (src/, data/, logs/) för att det skulle se organiserat ut. Men sen bestämde jag mig för att jobba i en fil först (simple_menu.py) för att det var enklare att se allt på en gång.
 
-
 - Lättare att testa - allt är på samma ställe
 - Kunde få det att fungera snabbare
 - Sen kan jag dela upp det senare om jag vill
@@ -39,10 +38,8 @@ Jag började med att skapa mappar (src/, data/, logs/) för att det skulle se or
 - Val 2 var lite svårare - fick googla hur psutil fungerar- 
 - Val 3 tog längst tid - behövde kolla så användaren inte skriver fel saker
 
-
 # Problem jag stött på
  1) Problem att jobba i en fil. Glömde committa efter varje del! Var så fokuserad på att få det att fungera. Från val 4 ska jag komma ihåg att committa oftare.
-
 
 2) Input-validering var svårt, då jag innan if statement försökte med case, då jag såg många andra klasskamrater jobba med det. vilket blev även att jag hade problem med erorrhanteringar.
 
@@ -62,7 +59,6 @@ Jag började med att skapa mappar (src/, data/, logs/) för att det skulle se or
 7) i val 5, för uppgiften:
 
  - Avbrott: Hur jag exakt ska implementera att man kan trycka på valfri tagent för att avbryta i konsolen utan att blockera time.sleep(1)
-
 
 # jag tänkte
 - "key=hämta_typ" betyder "hämta alla keys från larm_lista"
@@ -87,7 +83,6 @@ Python sorterar sedan på dessa returvärden
  
  key= tar en FUNKTION som parameter, inte en nyckel från dictionaryn!
 
-
 # Struktur just nu
 
 uppgiftpython/
@@ -98,7 +93,47 @@ uppgiftpython/
 ├── requirements.txt    
 └── README.md          
 
+# ⬇️ FYLLA IN HÄR - REFAKTORERING ⬇️
 
+## Refaktorering från simple_menu.py till klassstruktur
+
+Delade upp simple_menu.py i fyra separata klasser för att koden skulle bli tydligare:
+
+- `src/alarm.py` - Alarm och AlarmManager klasser (logik)
+- `src/monitoring.py` - Monitor klass (läser systemet med psutil)
+- `src/menu.py` - Menu klass (all I/O och användarinteraktion)
+- `src/main.py` - Entry point
+
+**Varför?** Mycket lättare att läsa, testa och underhålla när allt är separerat.
+
+## Problem under refaktoreringen och lösningar
+
+1) **Blandat svenska/engelska** - Skrev ibland `"Minne"` och ibland `"Memory"` → CRASHES!
+   - Lösning: All kod är nu på ENGELSKA (CPU, Memory, Disk överallt)
+
+2) **Val 5 blockerade menyn** - `while True` loopen gjorde att man inte kunde gå tillbaka
+   - Lösning: Använde threading för att köra övervakningen i bakgrunden
+
+3) **Sortering av larm** - Förstod inte hur `sorted(larm, key=hämta_typ)` fungerade
+   - Min felaktig tanke: key= hämtar från dictionaryn
+   - Rätt: key= tar en FUNKTION som parameter!
+
+4) **Dictionary keys måste matcha** - Skrev `values["Memory"]` men det var `values["memory"]`
+   - Lösning: Case-sensitive! Var noga med stavning
+
+## Vad jag lärt mig denna gång
+
+**Nya koncept:**
+- Threading - köra kod i bakgrunden utan att blockera menyn
+- Separation of Concerns - varje klass gör EN sak
+- Ren logik vs I/O - klasserna returnerar data, Menu visar den
+
+**Från buggar:**
+- Stavningsfel och case-sensitivity tar timmar att debug
+- Konsekvent engelska överallt sparar många fel
+- Importer måste vara rätt för att klasser hittas
+
+# ⬆️ FYLLA IN HÄR - SLUT ⬆️
 
 # Reflektioner 
 
@@ -119,7 +154,6 @@ uppgiftpython/
 - När man ska använda funktioner vs bara skriva i main
 - Om min kod är "bra" eller bara "funkar"
 
-
  Varför simple_menu.py först?
 Jag tänkte att det var enklare att se allt på ett ställe medan jag lär mig. När allt fungerar kan jag alltid dela upp det senare om jag vill. Är inte säker på om det är "rätt" sätt men det funkar för mig just nu.
 
@@ -128,8 +162,7 @@ larm = {"typ": "CPU", "nivå": 80}
 
 För att det är tydligt vad som är vad. Kunde ha använt en lista typ `["CPU", 80]` men då vet man inte vad 80 betyder utan att komma ihåg ordningen.
 
-
-# för val 5:
+#  Reflektioner för val 5:
 - Mina reflektioner kring uppgiften
  **Larmutlösning:** Om flera nivåer är satta (t.ex. CPU 60%, 70%, 80%), är tanken att **alla** larm ska triggas, eller enbart det med **högsta** nivån (80%) när användningen överstiger det? 
  
@@ -137,24 +170,10 @@ För att det är tydligt vad som är vad. Kunde ha använt en lista typ `["CPU",
 
 # Vad jag har kvar
 
+- Val 5 är nu klar med threading!
 
-- Val 5: Övervakningsläge (Måste lösa problemet med att bryta loopen med en tangenttryckning utan att bryta realtidsmätningen.)
+ Om jag har tid (VG-nivå):
 
- Om jag har tid:
-
-
-- Skriv små funktioner med en uppgift vardera
-- Separera logik från input/output
-- Dela upp i flera filer (src/)
 - Spara larm till JSON
 - Loggning
-
-## Reflektion
-
-**Lär jag mig?*
-
-
-# Vad jag vill bli bättre på:
-- Strukturera kod bättre
-- Förstå när man ska använda funktioner
-- Skriva renare kod (min kod funkar men är lite rörig)
+- Ta bort larm

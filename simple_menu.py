@@ -1,5 +1,6 @@
 import psutil
 import time
+import threading
 
 
 def main_menu():
@@ -32,8 +33,8 @@ def main_menu():
                 print("ogiltigt val, ingen övervakning är aktiv återgå till menuval")
 
             else:
-                cpu = psutil.cpu_precent()
-                print(f"CPU användning: {cpu(interval=1)}%")
+                cpu = psutil.cpu_percent(interval=1)
+                print(f"CPU användning: {cpu}%")
 
                 mem = psutil.virtual_memory()
                 print(
@@ -111,33 +112,33 @@ def main_menu():
                 "övervakning aktiv, tryck på valfri tagent för att återgå till Huvudmeny"
             )
 
-        try:
-            while True:
+            try:
+                while True:
 
-                cpu = psutil.cpu_percent(interval=1)
-                mem = psutil.virtual_memory().percent
-                disk = psutil.disk_usage("/").percent
+                    cpu = psutil.cpu_percent(interval=1)
+                    mem = psutil.virtual_memory().percent
+                    disk = psutil.disk_usage("/").percent
 
-                for larm in larm_lista:
-                    if larm["typ"] == "CPU" and cpu >= larm["nivå"]:
-                        print(
-                            f"***VARNING, CPU ANVÄNDNING ÖVERSTIGER {larm['nivå']}%***"
-                        )
+                    for larm in larm_lista:
+                        if larm["typ"] == "CPU" and cpu >= larm["nivå"]:
+                            print(
+                                f"***VARNING, CPU ANVÄNDNING ÖVERSTIGER {larm['nivå']}%***"
+                            )
 
-                    elif larm["typ"] == "Minne" and mem >= larm["nivå"]:
-                        print(
-                            f"***VARNING, MINNESANVÄNDNING ÖVERSTIGER {larm['nivå']}%***"
-                        )
+                        elif larm["typ"] == "Minne" and mem >= larm["nivå"]:
+                            print(
+                                f"***VARNING, MINNESANVÄNDNING ÖVERSTIGER {larm['nivå']}%***"
+                            )
 
-                    elif larm["typ"] == "Disk" and disk >= larm["nivå"]:
-                        print(
-                            f"***VARNING, DISKANVÄNDNING ÖVERSTIGER {larm['nivå']}%***"
-                        )
+                        elif larm["typ"] == "Disk" and disk >= larm["nivå"]:
+                            print(
+                                f"***VARNING, DISKANVÄNDNING ÖVERSTIGER {larm['nivå']}%***"
+                            )
 
-                time.sleep(1)
+                            time.sleep(1)
 
-        except KeyboardInterrupt:
-            print("\n\nÖvervakningsläge avslutad")
+            except KeyboardInterrupt:
+                print("\n\nÖvervakningsläge avslutad")
 
 
 if __name__ == "__main__":
