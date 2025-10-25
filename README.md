@@ -92,10 +92,7 @@ uppgiftpython/
 ├── logs/               # Tom, för loggfiler senare
 ├── requirements.txt    
 └── README.md          
-
-# ⬇️ FYLLA IN HÄR - REFAKTORERING ⬇️
-
-## Refaktorering från simple_menu.py till klassstruktur
+ur
 
 Delade upp simple_menu.py i fyra separata klasser för att koden skulle bli tydligare:
 
@@ -133,7 +130,6 @@ Delade upp simple_menu.py i fyra separata klasser för att koden skulle bli tydl
 - Konsekvent engelska överallt sparar många fel
 - Importer måste vara rätt för att klasser hittas
 
-# ⬆️ FYLLA IN HÄR - SLUT ⬆️
 
 # Reflektioner 
 
